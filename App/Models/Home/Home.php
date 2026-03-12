@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Employee\Home;
+namespace App\Models\Home;
 
 class Home
 {

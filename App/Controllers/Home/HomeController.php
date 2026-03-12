@@ -1,8 +1,7 @@
 <?php
-namespace App\Controllers\Employee\Home;
+namespace App\Controllers\Home;
 
-use App\Models\Employee\Home\Home as HomeModel;
-
+use App\Models\Home\Home as HomeModel;
 
 class HomeController
 {
@@ -16,8 +15,6 @@ class HomeController
     public function index()
     {
         $data = $this->homeModel->getData();
-
-        // Pass it to the view
-        view_render('Employee/Home/Home', $data);
+        view_render('home/home', $data);
     }   
 }

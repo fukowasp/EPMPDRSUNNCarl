@@ -1,7 +1,7 @@
 <?php
 //Home
-$router->get('/', 'Employee/Home/HomeController@index'); 
-$router->get('employee/home', 'Employee/Home/HomeController@index');
+$router->get('/', 'Home/HomeController@index'); 
+$router->get('/home', 'Home/HomeController@index'); 
 
 // Employee PDS Preview
 $router->get('employee/pds/preview', 'Employee/Pds/PdsController@index');
