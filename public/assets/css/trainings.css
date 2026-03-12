@@ -1,0 +1,255 @@
+/* ======================================================
+   SUNN Portal - TRAINING HISTORY (Full CivilSer Layout)
+   Includes SIDEBAR + HEADER + TRAINING TABLE SYSTEM
+   ====================================================== */
+
+/* ===== Root Variables ===== */
+:root {
+    --sunn-primary: #1e3a8a;
+    --sunn-secondary: #059669;
+    --sunn-accent: #dc2626;
+    --sunn-light-blue: #dbeafe;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --border-light: #e2e8f0;
+    --bg-light: #f8fafc;
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+
+    /* Sidebar sizes */
+    --sidebar-xl: 280px;
+    --sidebar-lg: 250px;
+    --sidebar-md: 220px;
+    --sidebar-sm: 200px;
+    --sidebar-xs: 0;
+}
+
+/* ==========================================
+   GLOBAL
+========================================== */
+body {
+    background: var(--bg-light);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-xl);
+    background: #1a202c;
+    overflow-y: auto;
+    transition: width 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+/* Brand */
+.brand-link {
+    display:flex;
+    align-items:center;
+    padding:1.5rem;
+    color:white;
+    background:rgba(255,255,255,0.05);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    text-decoration: none !important
+}
+.brand-image {
+    width:42px;height:42px;border-radius:10px;
+    background:linear-gradient(135deg,var(--sunn-primary),var(--sunn-secondary));
+    display:flex;align-items:center;justify-content:center;
+    margin-right:12px;
+}
+.brand-text { font-size:1.2rem;font-weight:700; }
+
+/* User Panel */
+.user-panel {
+    display:flex;align-items:center;
+    padding:1.5rem;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.user-panel .image {
+    width:50px;height:50px;border-radius:12px;
+    background:linear-gradient(135deg,var(--sunn-secondary),var(--sunn-primary));
+    display:flex;align-items:center;justify-content:center;
+    margin-right:14px;
+}
+.user-panel .info a { color:white;font-weight:600;text-decoration:none; }
+
+/* Sidebar Menu */
+.nav-sidebar .nav-link {
+    color:rgba(255,255,255,0.8);
+    padding:12px 16px;
+    border-radius:10px;
+    margin:3px 12px;
+    display:flex;align-items:center;
+}
+.nav-sidebar .nav-link:hover {
+    background:#2d3748;color:white;transform:translateX(4px);
+}
+.nav-sidebar .nav-link.active {
+    background:#4a5568;
+    color:white;
+    box-shadow:var(--shadow-md);
+}
+
+/* Section Headers */
+.nav-header {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   CONTENT WRAPPER
+========================================== */
+.content-wrapper {
+    margin-left: var(--sidebar-xl);
+    width: calc(100% - var(--sidebar-xl));
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width:1200px){
+    .main-sidebar{width:var(--sidebar-lg);}
+    .content-wrapper{margin-left:var(--sidebar-lg);width:calc(100% - var(--sidebar-lg));}
+}
+@media (max-width:992px){
+    .main-sidebar{width:var(--sidebar-md);}
+    .content-wrapper{margin-left:var(--sidebar-md);width:calc(100% - var(--sidebar-md));}
+}
+@media (max-width:768px){
+    .main-sidebar{width:var(--sidebar-sm);}
+    .content-wrapper{margin-left:var(--sidebar-sm);width:calc(100% - var(--sidebar-sm));}
+}
+@media (max-width:576px){
+    .main-sidebar{transform:translateX(-100%);}
+    .content-wrapper{margin-left:0;width:100%;padding:1rem;}
+}
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+.page-header {
+    background:linear-gradient(135deg,var(--sunn-primary),var(--sunn-secondary));
+    padding:2.5rem 2rem;
+    border-radius:16px;
+    color:white;
+    box-shadow:var(--shadow-md);
+    margin-bottom:2rem;
+}
+.page-title {
+    font-size:2rem;font-weight:700;margin-bottom:.5rem;
+}
+.page-subtitle { opacity:.9;font-size:1.1rem; }
+
+/* ==========================================
+   TRAINING CARD
+========================================== */
+.training-card {
+    background:white;
+    padding:2rem;
+    border-radius:16px;
+    border:1px solid var(--border-light);
+    box-shadow:var(--shadow-lg);
+}
+
+/* Section Header */
+.section-header {
+    display:flex;align-items:center;gap:1rem;
+    border-bottom:3px solid var(--sunn-light-blue);
+    padding-bottom:1rem;
+    margin-bottom:1.5rem;
+}
+.section-icon{
+    width:45px;height:45px;border-radius:12px;
+    background:linear-gradient(135deg,var(--sunn-primary),var(--sunn-secondary));
+    display:flex;align-items:center;justify-content:center;
+    color:white;font-size:1.3rem;
+}
+.section-title{font-size:1.4rem;font-weight:700;}
+
+/* ==========================================
+   TRAINING TABLE
+========================================== */
+#employeeTrainingsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table Header */
+#employeeTrainingsTable thead th {
+    background: var(--bg-light);
+    padding: 14px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border-light);
+    color: var(--text-primary); /* Ensure header text is dark */
+}
+
+/* Table Body */
+#employeeTrainingsTable tbody td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-light);
+    color: black; /* Make all table body text black */
+}
+
+/* Row hover */
+#employeeTrainingsTable tbody tr:hover {
+    background: #f3f4f6;
+}
+
+/* Clickable Status & Reason */
+.clickable-status {
+    color: var(--sunn-secondary);
+    cursor: pointer;
+    font-weight: 600;
+}
+.clickable-status:hover { text-decoration: underline; }
+
+.clickable-reason {
+    color: var(--sunn-accent);
+    cursor: pointer;
+    font-weight: 600;
+}
+.clickable-reason:hover { text-decoration: underline; }
+
+/* Buttons */
+.btn {
+    padding: 0.7rem 1.5rem;
+    border-radius:6px;
+    font-weight:500;
+}
+.btn-primary {
+    background: var(--sunn-secondary);
+    border: none;
+    color: white;
+}
+.btn-primary:hover { background: var(--sunn-primary); }
+.btn-danger {
+    background: var(--sunn-accent);
+}
+.btn-danger:hover { opacity:0.85; }
+
+/* Badges */
+.badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.badge-success { background:#d1fae5; color:#065f46; }
+.badge-warning { background:#fef3c7; color:#92400e; }
+.badge-danger { background:#fee2e2; color:#991b1b; }
+
+/* Responsive */
+@media (max-width:768px){
+    .content-wrapper{padding:1rem;}
+    .page-header{padding:1.5rem;}
+}

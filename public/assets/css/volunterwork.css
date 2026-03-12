@@ -1,0 +1,199 @@
+/* ======================================================
+   SUNN Portal - Voluntary Work (Unified Civil Service Style)
+   Matches Sidebar + Page Layout + Form Styles
+   ====================================================== */
+
+/* ===== Root Variables ===== */
+:root {
+    --sunn-primary: #1e3a8a;
+    --sunn-secondary: #059669;
+    --sunn-accent: #dc2626;
+    --sunn-gold: #f59e0b;
+    --sunn-light-blue: #dbeafe;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --border-light: #e2e8f0;
+    --bg-light: #f8fafc;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6 -2px rgba(0,0,0,0.05);
+
+    /* Sidebar sizes */
+    --sidebar-xl: 280px;
+    --sidebar-lg: 250px;
+    --sidebar-md: 220px;
+    --sidebar-sm: 200px;
+    --sidebar-xs: 0;
+}
+
+/* ===== Global Styles ===== */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ===== SIDEBAR ===== */
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-xl);
+    background: #1a202c;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1.25rem;
+    text-decoration: none;
+    color: white;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.brand-link:hover { background: rgba(255,255,255,0.08); }
+.brand-image {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--sunn-primary), var(--sunn-secondary));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.brand-image i { color: white; font-size: 1.3rem; }
+.brand-text { font-weight: 700; font-size: 1.1rem; }
+
+.user-panel { display: flex; align-items: center; padding: 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.user-panel .image {
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--sunn-secondary), var(--sunn-primary));
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 14px;
+}
+.user-panel .image i { color: white; font-size: 1.4rem; }
+.user-panel .info a { color: white; font-weight: 600; text-decoration: none; }
+
+.nav-sidebar .nav-item .nav-link {
+    display: flex; align-items: center;
+    color: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    margin: 3px 12px;
+    padding: 12px 16px;
+    font-weight: 500; font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-sidebar .nav-item .nav-link i { margin-right: 12px; width: 20px; text-align: center; font-size: 1.1rem; }
+.nav-sidebar .nav-item .nav-link:hover { background: #2d3748; color: white; transform: translateX(4px); }
+.nav-sidebar .nav-item .nav-link.active { background: #4a5568; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
+/* ===== CONTENT WRAPPER ===== */
+.content-wrapper {
+    margin-left: var(--sidebar-xl);
+    width: calc(100% - var(--sidebar-xl));
+    padding: 2rem;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+    background: linear-gradient(135deg, var(--sunn-primary), var(--sunn-secondary));
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+}
+.page-title { font-size: 2rem; font-weight: 700; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 1rem; }
+.page-subtitle { font-size: 1.1rem; opacity: 0.9; }
+
+/* ===== CARD LAYOUT ===== */
+.form-card,
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+}
+
+/* ===== ALERTS ===== */
+.alert-info {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #166534;
+}
+
+/* ===== FORM ELEMENTS ===== */
+.form-label { font-weight: 500; margin-bottom: 0.5rem; color: var(--text-primary); }
+.form-control, .form-select {
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.75rem;
+    width: 100%;
+}
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--sunn-secondary);
+    box-shadow: 0 0 0 3px rgba(5,150,105,0.1);
+}
+.required { color: var(--sunn-accent); }
+
+/* ===== BUTTONS ===== */
+.btn { padding: 0.75rem 1.5rem; font-weight: 500; border-radius: 6px; }
+.btn-primary { background: var(--sunn-secondary); border-color: var(--sunn-secondary); color: white; }
+.btn-primary:hover { background: var(--sunn-primary); border-color: var(--sunn-primary); }
+.btn-outline-secondary { border: 2px solid var(--border-light); color: var(--text-primary); }
+.btn-outline-secondary:hover { background: var(--sunn-secondary); color: white; }
+
+/* ===== FILE INPUT & PREVIEW ===== */
+input[type="file"] {
+    border: 2px dashed #d1d5db;
+    background: #fafbfc;
+    padding: 0.75rem;
+    border-radius: 6px;
+}
+input[type="file"]:hover { border-color: var(--sunn-secondary); background: #f0fdf4; }
+.img-preview-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.img-preview-container img {
+    width: 100px; height: auto; border-radius: 8px; border: 1px solid var(--border-light); object-fit: cover;
+}
+
+/* ===== ACTIONS ===== */
+.form-actions { background: var(--bg-light); padding: 1.5rem; border-top: 1px solid var(--border-light); text-align: right; }
+
+/* ===== ENTRY CARDS ===== */
+.voluntary-entry { background: white; border: 1px solid var(--border-light); border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .content-wrapper { padding: 1rem; }
+    .page-header { padding: 2rem 1.5rem; }
+    .page-title { font-size: 1.5rem; }
+    .form-card, .voluntary-entry { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    .img-preview-container img { width: 80px; }
+}
+
+/* Sidebar section headers */
+.nav-header {
+    color: rgba(255,255,255,0.5) !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+

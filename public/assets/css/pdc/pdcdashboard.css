@@ -1,0 +1,80 @@
+/* Sidebar gradient */
+.sidebar { 
+    width:250px; 
+    position:fixed; 
+    top:60px; 
+    left:0; 
+    height:calc(100% - 70px); 
+    background: linear-gradient(180deg, #1e3a8a 0%, #059669 100%, #dbeafe 200%); 
+    padding-top:1rem; 
+    overflow-y:auto; 
+}
+.sidebar a { 
+    color:white; 
+    display:block; 
+    padding:12px 20px; 
+    text-decoration:none; 
+    transition:0.2s; 
+}
+.sidebar a.active, .sidebar a:hover { 
+    background: rgba(255,255,255,0.2); 
+}
+
+/* Main content */
+main { 
+    margin-left: 250px; 
+    padding: 70px 20px 20px 20px; 
+    background: linear-gradient(120deg, #fff9e6, #ffffffff); 
+    min-height: 100vh; 
+    transition: all 0.3s ease; 
+}
+
+/* Card container */
+.container { 
+    background: rgba(255, 255, 255, 0.9); 
+    padding: 25px 30px; 
+    border-radius: 15px; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); 
+}
+
+/* DataTable styling */
+table.dataTable thead { 
+    background: linear-gradient(90deg, #ffea85 0%, #ffc107 100%); 
+    color: #000; 
+    font-weight: 600; 
+}
+.dataTable tbody tr:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
+    background: linear-gradient(90deg,#fff3cd 0%,#ffe066 100%); 
+}
+.dataTables_filter input { 
+    border-radius: 0.5rem; 
+    border: 1px solid #ffc107; 
+    padding: 0.25rem 0.5rem; 
+    background: #fffbea; 
+}
+
+/* Buttons */
+.btn-add-participant {
+    background: #0077B6;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    transition: 0.2s;
+}
+.btn-add-participant:hover {
+    opacity: 0.85;
+}
+
+/* Modal header for Add Participant */
+.modal-header.bg-primary {
+    background: #0077B6;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 992px) { 
+    main { margin-left: 0; } 
+    table.dataTable { font-size: 0.9rem; } 
+}

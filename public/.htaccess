@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteBase /EPMPDRSUNN/
+
+# Exclude existing files, directories, and assets folder from rewrite
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/EPMPDRSUNN/public/assets/
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Serve PDF files inline
+<FilesMatch "\.pdf$">
+    <IfModule mod_headers.c>
+        Header set Content-Type "application/pdf"
+        Header set Content-Disposition "inline"
+    </IfModule>
+</FilesMatch>

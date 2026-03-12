@@ -1,0 +1,16 @@
+
+RewriteEngine On
+# directory browsing
+Options All -Indexes
+
+# Prevent XSS attacks
+Header set X-XSS-Protection "1; mode=block"
+
+
+
+# Skip redirection for actual public folder requests
+RewriteCond %{REQUEST_URI} !^/public/
+
+# Redirect all requests to /public but keep the URI
+RewriteRule ^(.*)$ public/$1 [L]
+

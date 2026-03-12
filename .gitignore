@@ -1,0 +1,20 @@
+# Ignore environment file (security)
+.env
+
+# Ignore database dumps
+/database/*.sql
+
+# Ignore system files
+*.log
+*.cache
+*.bak
+*.tmp
+
+# Ignore IDE / editor settings
+.vscode/
+.idea/
+*.swp
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db

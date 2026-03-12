@@ -1,0 +1,229 @@
+ :root {
+            --sunn-primary: #1e3a8a;
+            --sunn-secondary: #059669;
+            --sunn-accent: #dc2626;
+            --sunn-gold: #f59e0b;
+            --sunn-light-blue: #dbeafe;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--sunn-primary) 0%, var(--sunn-secondary) 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px 0;
+        }
+        
+        .register-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            min-height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
+        }
+
+        .register-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            border: none;
+            overflow: hidden;
+            max-width: 480px;
+            width: 100%;
+            margin: auto;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        
+        .university-header {
+            background: linear-gradient(135deg, var(--sunn-primary) 0%, var(--sunn-secondary) 100%);
+            color: white;
+            padding: 1rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .university-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .university-logo i {
+            font-size: 1.5rem;
+            color: var(--sunn-primary);
+        }
+
+        .university-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .university-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin: 0.2rem 0 0;
+        }
+
+        .register-form {
+            padding: 1rem;
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--sunn-primary);
+            box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, var(--sunn-primary) 0%, var(--sunn-secondary) 100%);
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
+            color: white;
+        }
+        
+        .section-title {
+            color: var(--sunn-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid var(--sunn-light-blue);
+            font-size: 1rem;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-upload-area:hover {
+            border-color: var(--sunn-primary);
+            background-color: var(--sunn-light-blue);
+        }
+        
+        .file-upload-area.dragover {
+            border-color: var(--sunn-secondary);
+            background-color: rgba(5, 150, 105, 0.1);
+        }
+        
+        .password-strength {
+            height: 5px;
+            border-radius: 3px;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-weak { background-color: #ef4444; }
+        .strength-medium { background-color: #f59e0b; }
+        .strength-strong { background-color: #10b981; }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .register-links {
+            text-align: center;
+            padding: 0.75rem 1rem 1rem;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        .register-links a {
+            color: var(--sunn-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-links a:hover {
+            color: var(--sunn-secondary);
+        }
+
+        .role-badge {
+            background: var(--sunn-gold);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.4rem;
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 8px;
+            }
+
+            .register-card {
+                max-width: 100%;
+                margin: 0;
+                max-height: 98vh;
+            }
+
+            .register-form {
+                padding: 0.75rem;
+            }
+
+            .university-title {
+                font-size: 1rem;
+            }
+
+            .university-subtitle {
+                font-size: 0.75rem;
+            }
+
+            .university-header {
+                padding: 0.75rem 0.75rem;
+            }
+
+            .section-title {
+                font-size: 0.9rem;
+            }
+
+            .form-control, .form-select {
+                font-size: 0.85rem;
+                padding: 0.45rem;
+            }
+
+            .btn-register {
+                font-size: 0.9rem;
+                padding: 0.55rem;
+            }
+
+            .register-links {
+                padding: 0.5rem 0.75rem 0.75rem;
+                font-size: 0.85rem;
+            }
+        }

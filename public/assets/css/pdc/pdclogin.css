@@ -1,0 +1,200 @@
+:root {
+  --sunn-primary: #0077B6;
+  --sunn-secondary: #00B4D8;
+  --sunn-accent: #dc2626;
+  --sunn-gold: #0d6efd;
+  --sunn-light-blue: #dbeafe;
+  --pdc-primary: #0077B6;
+  --pdc-secondary: #00B4D8;
+}
+
+/* Background Gradient - Same as Employee Login */
+body {
+  background: linear-gradient(135deg,  #1e3a8a 0%, #059669 100%, #dbeafe 200%);
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Layout */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Card */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  max-height: 95vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.university-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%, #dbeafe 200%);
+  color: #fff;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  position: relative;
+}
+
+.university-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='grain' width='100' height='100' patternUnits='userSpaceOnUse'><circle cx='25' cy='25' r='1' fill='white' opacity='0.1'/><circle cx='75' cy='75' r='1' fill='white' opacity='0.1'/><circle cx='50' cy='10' r='0.5' fill='white' opacity='0.1'/></pattern></defs><rect width='100' height='100' fill='url(%23grain)'/></svg>");
+  opacity: 0.3;
+}
+
+.university-logo {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 0.75rem;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.university-logo i {
+  font-size: 1.8rem;
+  color: var(--pdc-primary);
+}
+
+.university-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.university-subtitle {
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+/* Role Badge & Info */
+.role-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 15px;
+  background: var(--sunn-gold);
+  color: #fff;
+}
+
+.pdc-info {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Form */
+.login-form {
+  padding: 1.25rem;
+}
+
+.form-floating {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--pdc-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 119, 182, 0.25);
+}
+
+/* Button */
+.btn-login {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%, #dbeafe 200%);
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 119, 182, 0.3);
+}
+
+/* Links */
+.login-links {
+  text-align: center;
+  padding: 1rem 2rem 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.login-links a {
+  color: var(--pdc-primary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-links a:hover {
+  color: var(--pdc-secondary);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .login-card {
+    max-width: 100%;
+    max-height: 98vh;
+  }
+
+  .university-title {
+    font-size: 1.1rem;
+  }
+
+  .university-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .login-form {
+    padding: 1rem;
+  }
+
+  .university-header {
+    padding: 1rem 0.75rem;
+  }
+
+  .pdc-info {
+    font-size: 0.7rem;
+    padding: 0.6rem;
+  }
+}
