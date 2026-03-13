@@ -5,6 +5,7 @@ $router->get('employee/home', 'Employee/Home/HomeController@index');
 
 // Employee PDS Preview
 $router->get('employee/pds/preview', 'Employee/Pds/PdsController@index');
+$router->get('employee/pds/employee-data', 'Employee\Pds\PdsController@employeeData');
 
 //Employee Register
 $router->get('employee/register', 'Employee/Register/RegisterController@index');
