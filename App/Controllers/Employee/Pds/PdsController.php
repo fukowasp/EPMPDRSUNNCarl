@@ -55,6 +55,8 @@ class PdsController extends EmployeeBaseController
             $cells['C1:D17'] = ['v' => $p['civil_status'] ?? ''];
             // 16. Citizenship     → J13:N13
             $cells['C1:J13'] = ['v' => $p['citizenship_type'] ?? ''];
+            $cells['C1:J14'] = ['v' => $p['dual_citizenship_by'] ?? ''];
+            $cells['C1:J15'] = ['v' => $p['dual_citizenship_country'] ?? ''];
             // 7. Height           → D22:F23
             $cells['C1:D22'] = ['v' => (string) ($p['height'] ?? '')];
             // 8. Weight           → D24:F24
