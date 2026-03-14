@@ -9,29 +9,42 @@ class Info extends Model
     protected string $table = 'personal_information';
 
     // Save or update
-    public function save(array $data): bool
-    {
-        if (empty($data['employee_id'])) return false;
+public function save(array $data): bool
+{
+    if (empty($data['employee_id'])) return false;
 
-        $employeeId = $data['employee_id'];
+    $employeeId = $data['employee_id'];
 
-        if ($this->exists($employeeId)) {
-            $columns = array_keys($data);
-            $updateFields = [];
-            foreach ($columns as $col) {
-                if ($col !== 'employee_id') $updateFields[] = "$col = :$col";
-            }
-            $sql = "UPDATE {$this->table} SET " . implode(', ', $updateFields) . " WHERE employee_id = :employee_id";
-            $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute($data);
-        } else {
-            $columns = array_keys($data);
-            $placeholders = ':' . implode(', :', $columns);
-            $sql = "INSERT INTO {$this->table} (" . implode(', ', $columns) . ") VALUES ($placeholders)";
-            $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute($data);
+    if ($this->exists($employeeId)) {
+        $columns = array_keys($data);
+        $updateFields = [];
+        foreach ($columns as $col) {
+            if ($col !== 'employee_id') $updateFields[] = "$col = :$col";
         }
+        $sql = "UPDATE {$this->table} SET " . implode(', ', $updateFields) . " WHERE employee_id = :employee_id";
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute($data);
+        
+        // Force commit in case auto-commit is off
+        if ($this->pdo->inTransaction()) {
+            $this->pdo->commit();
+        }
+        
+        return $result;
+    } else {
+        $columns = array_keys($data);
+        $placeholders = ':' . implode(', :', $columns);
+        $sql = "INSERT INTO {$this->table} (" . implode(', ', $columns) . ") VALUES ($placeholders)";
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute($data);
+        
+        if ($this->pdo->inTransaction()) {
+            $this->pdo->commit();
+        }
+        
+        return $result;
     }
+}
 
     public function getByEmployeeId(string $employeeId): array
     {

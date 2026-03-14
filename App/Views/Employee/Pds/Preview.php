@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PDS Preview — CS Form 212</title>
-  <link rel="stylesheet" href="<?= base_url('public/pds-preview.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/pds/pds-preview.css') ?>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
@@ -58,7 +58,7 @@
       employeeId: '<?= $employeeId ?>'
     };
   </script>
-  <script src="<?= base_url("public/pds_renderer.js") ?>"></script>
+  <script src="<?= base_url("assets/pds/pds_renderer.js") ?>"></script>
 
 
 </body>

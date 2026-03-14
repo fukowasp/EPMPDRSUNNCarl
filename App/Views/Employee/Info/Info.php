@@ -411,10 +411,27 @@
             $.getJSON("<?= base_url('employee/info/get') ?>", function (res) {
                 if (!res.success || !res.data) return;
                 const d = res.data;
+
+                // Phase 1: Fill text inputs and selects
                 for (const key in d) {
                     const el = $('#' + key);
                     if (el.length) el.val(d[key]);
                 }
+
+                // Phase 2: Handle radio buttons manually
+                const radioFields = ['citizenship_type', 'dual_citizenship_by'];
+                radioFields.forEach(function (name) {
+                    if (d[name]) {
+                        $('input[type="radio"][name="' + name + '"][value="' + d[name] + '"]')
+                            .prop('checked', true);
+                    }
+                });
+
+                // Phase 3: Show/hide dual citizenship section based on saved value
+                if (d.citizenship_type === 'Dual Citizenship') {
+                    $('#dual_citizenship_section').show();
+                }
+
                 if (d.employee_photo_base64) photoPreview.src = d.employee_photo_base64;
             });
 
@@ -429,22 +446,43 @@
 
             // Form submission
             $('#personalInfoForm').on('submit', async function (e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                try {
-                    const res = await fetch("<?= base_url('employee/info/save') ?>", { method: 'POST', body: formData });
-                    const result = await res.json();
-                    if (result.success) {
-                        alert(`✅ ${result.message}`);
-                        window.location.href = "<?= base_url('employee/dashboard') ?>";
-                    } else {
-                        alert(`❌ ${result.message || result.error}`);
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert("❌ Error saving information.");
-                }
-            });
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const citizenshipType = $('input[name="citizenship_type"]:checked').val() || 'Filipino';
+    const dualBy = $('input[name="dual_citizenship_by"]:checked').val() || '';
+    const dualCountry = $('#dual_country').val() || '';
+
+    // Use delete + set pattern to ensure no duplicates
+    formData.delete('citizenship_type');
+    formData.delete('dual_citizenship_by');
+    formData.delete('dual_citizenship_country');
+    
+    formData.append('citizenship_type', citizenshipType);
+    formData.append('dual_citizenship_by', dualBy);
+    formData.append('dual_citizenship_country', dualCountry);
+
+    console.log('citizenship_type:', formData.get('citizenship_type'));
+    console.log('dual_citizenship_by:', formData.get('dual_citizenship_by'));
+    console.log('dual_citizenship_country:', formData.get('dual_citizenship_country'));
+
+    try {
+        const res = await fetch("<?= base_url('employee/info/save') ?>", { 
+            method: 'POST', 
+            body: formData 
+        });
+        const result = await res.json();
+        if (result.success) {
+            alert(`✅ ${result.message}`);
+            window.location.href = "<?= base_url('employee/dashboard') ?>";
+        } else {
+            alert(`❌ ${result.message || result.error}`);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("❌ Error saving information.");
+    }
+});
 
             // Clear form
             $('#clearFormBtn').on('click', function () {
@@ -484,7 +522,12 @@
                     );
                 });
 
-                $('#dual_country').trigger('change');
+                // Restore saved country AFTER options are populated
+                $.getJSON("<?= base_url('employee/info/get') ?>", function (res) {
+                    if (res.success && res.data && res.data.dual_citizenship_country) {
+                        $('#dual_country').val(res.data.dual_citizenship_country).trigger('change');
+                    }
+                });
 
             });
 

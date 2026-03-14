@@ -47,7 +47,8 @@ class InfoController extends EmployeeBaseController
         }
 
         $data = $this->infoModel->getByEmployeeId($employee['employee_id']);
-        if (!$data) $data = [];
+        if (!$data)
+            $data = [];
 
         // Add Base64 photo
         if (!empty($data['employee_photo'])) {
@@ -66,16 +67,28 @@ class InfoController extends EmployeeBaseController
 
     // Save personal info
     public function save()
-    {
-        header('Content-Type: application/json');
-        $employee = Auth::user();
-        if (!$employee) {
-            echo json_encode(["success" => false, "error" => "Unauthorized"]);
-            return;
-        }
+{
+    file_put_contents(__DIR__ . '/debug.log', print_r($_POST, true));
+    header('Content-Type: application/json');
+    $employee = Auth::user();
+    if (!$employee) {
+        echo json_encode(["success" => false, "error" => "Unauthorized"]);
+        return;
+    }
 
-        $employeeId = $employee['employee_id'];
-        $data = $_POST;
+    $employeeId = $employee['employee_id'];
+    $data = $_POST;
+
+    // Force these fields — guaranteed present
+    $data['citizenship_type']        = trim($data['citizenship_type'] ?? 'Filipino');
+    $data['dual_citizenship_by']     = trim($data['dual_citizenship_by'] ?? '');
+    $data['dual_citizenship_country']= trim($data['dual_citizenship_country'] ?? '');
+
+    // If not dual, wipe sub-fields
+    if ($data['citizenship_type'] !== 'Dual Citizenship') {
+        $data['dual_citizenship_by']      = '';
+        $data['dual_citizenship_country'] = '';
+    }
 
         // Handle file upload
         if (isset($_FILES['employee_photo']) && $_FILES['employee_photo']['tmp_name']) {
@@ -95,7 +108,8 @@ class InfoController extends EmployeeBaseController
             }
 
             $uploadDir = __DIR__ . '/../../../uploads/employee_photos/';
-            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+            if (!is_dir($uploadDir))
+                mkdir($uploadDir, 0755, true);
 
             $fileName = $employeeId . '_' . time() . '_' . basename($file['name']);
             $destination = $uploadDir . $fileName;
