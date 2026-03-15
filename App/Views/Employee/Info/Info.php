@@ -446,43 +446,43 @@
 
             // Form submission
             $('#personalInfoForm').on('submit', async function (e) {
-    e.preventDefault();
-    const formData = new FormData(form);
+                e.preventDefault();
+                const formData = new FormData(form);
 
-    const citizenshipType = $('input[name="citizenship_type"]:checked').val() || 'Filipino';
-    const dualBy = $('input[name="dual_citizenship_by"]:checked').val() || '';
-    const dualCountry = $('#dual_country').val() || '';
+                const citizenshipType = $('input[name="citizenship_type"]:checked').val() || 'Filipino';
+                const dualBy = $('input[name="dual_citizenship_by"]:checked').val() || '';
+                const dualCountry = $('#dual_country').val() || '';
 
-    // Use delete + set pattern to ensure no duplicates
-    formData.delete('citizenship_type');
-    formData.delete('dual_citizenship_by');
-    formData.delete('dual_citizenship_country');
-    
-    formData.append('citizenship_type', citizenshipType);
-    formData.append('dual_citizenship_by', dualBy);
-    formData.append('dual_citizenship_country', dualCountry);
+                // Use delete + set pattern to ensure no duplicates
+                formData.delete('citizenship_type');
+                formData.delete('dual_citizenship_by');
+                formData.delete('dual_citizenship_country');
 
-    console.log('citizenship_type:', formData.get('citizenship_type'));
-    console.log('dual_citizenship_by:', formData.get('dual_citizenship_by'));
-    console.log('dual_citizenship_country:', formData.get('dual_citizenship_country'));
+                formData.append('citizenship_type', citizenshipType);
+                formData.append('dual_citizenship_by', dualBy);
+                formData.append('dual_citizenship_country', dualCountry);
 
-    try {
-        const res = await fetch("<?= base_url('employee/info/save') ?>", { 
-            method: 'POST', 
-            body: formData 
-        });
-        const result = await res.json();
-        if (result.success) {
-            alert(`✅ ${result.message}`);
-            window.location.href = "<?= base_url('employee/dashboard') ?>";
-        } else {
-            alert(`❌ ${result.message || result.error}`);
-        }
-    } catch (err) {
-        console.error(err);
-        alert("❌ Error saving information.");
-    }
-});
+                console.log('citizenship_type:', formData.get('citizenship_type'));
+                console.log('dual_citizenship_by:', formData.get('dual_citizenship_by'));
+                console.log('dual_citizenship_country:', formData.get('dual_citizenship_country'));
+
+                try {
+                    const res = await fetch("<?= base_url('employee/info/save') ?>", {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        alert(`✅ ${result.message}`);
+                        window.location.href = "<?= base_url('employee/dashboard') ?>";
+                    } else {
+                        alert(`❌ ${result.message || result.error}`);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Error saving information.");
+                }
+            });
 
             // Clear form
             $('#clearFormBtn').on('click', function () {

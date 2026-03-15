@@ -19,7 +19,7 @@ class PdsController extends EmployeeBaseController
     /* ─────────────────────────────────────────────────────────────────
        EMPLOYEE DATA  →  cell map consumed by pds_renderer.js
        Key format: "SheetName:CellAddr"  (split on FIRST colon)
-       
+
        ALL addresses verified by extracting merged cell ranges directly
        from PDS-Form-212-2025.xlsx using openpyxl.
     ───────────────────────────────────────────────────────────────── */
@@ -56,8 +56,7 @@ class PdsController extends EmployeeBaseController
             // 16. Citizenship     → J13:N13
             $cells['C1:J13'] = ['v' => $p['citizenship_type'] ?? ''];
             $cells['C1:J14'] = ['v' => $p['dual_citizenship_by'] ?? ''];
-            $cells['C1:J15'] = ['v' => $p['dual_citizenship_country'] ?? ''];
-            // 7. Height           → D22:F23
+            $cells['C1:__dual_country__'] = ['v' => $p['dual_citizenship_country'] ?? ''];            // 7. Height           → D22:F23
             $cells['C1:D22'] = ['v' => (string) ($p['height'] ?? '')];
             // 8. Weight           → D24:F24
             $cells['C1:D24'] = ['v' => (string) ($p['weight'] ?? '')];
@@ -127,7 +126,8 @@ class PdsController extends EmployeeBaseController
         if (!empty($data['family']['children'])) {
             $childRows = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48];
             foreach ($data['family']['children'] as $i => $child) {
-                if (!isset($childRows[$i])) break;
+                if (!isset($childRows[$i]))
+                    break;
                 $r = $childRows[$i];
                 $cells["C1:I{$r}"] = ['v' => strtoupper($child['child_name'] ?? '')];
                 if (!empty($child['child_birthdate'])) {
@@ -193,7 +193,7 @@ class PdsController extends EmployeeBaseController
 
         /* ══════════════════════════════════════════════════════════════
            C2  ·  Civil Service Eligibility & Work Experience
-           
+
            Eligibility rows 5–11:
              A{r}:E{r} = career service   F{r} = rating
              G{r}:H{r} = date             I{r} = place
@@ -209,7 +209,8 @@ class PdsController extends EmployeeBaseController
         if (!empty($data['professional']['eligibility'])) {
             $eligRows = [5, 6, 7, 8, 9, 10, 11];
             foreach ($data['professional']['eligibility'] as $i => $elig) {
-                if (!isset($eligRows[$i])) break;
+                if (!isset($eligRows[$i]))
+                    break;
                 $r = $eligRows[$i];
                 $cells["C2:A{$r}"] = ['v' => $elig['career_service'] ?? ''];
                 $cells["C2:F{$r}"] = ['v' => $elig['rating'] ?? ''];
@@ -225,7 +226,8 @@ class PdsController extends EmployeeBaseController
         if (!empty($data['professional']['work'])) {
             $workRows = range(18, 45);
             foreach ($data['professional']['work'] as $i => $work) {
-                if (!isset($workRows[$i])) break;
+                if (!isset($workRows[$i]))
+                    break;
                 $r = $workRows[$i];
                 $cells["C2:A{$r}"] = ['v' => !empty($work['work_date_from']) ? date('m/d/Y', strtotime($work['work_date_from'])) : ''];
                 $cells["C2:C{$r}"] = ['v' => !empty($work['work_date_to']) ? date('m/d/Y', strtotime($work['work_date_to'])) : 'Present'];
@@ -238,7 +240,7 @@ class PdsController extends EmployeeBaseController
 
         /* ══════════════════════════════════════════════════════════════
            C3  ·  Voluntary Work / L&D / Other Info
-           
+
            Voluntary rows 6–12:
              A{r}:D{r}=org  E{r}=from  F{r}=to  G{r}=hrs  H{r}:K{r}=position
 
@@ -252,11 +254,14 @@ class PdsController extends EmployeeBaseController
         if (!empty($data['professional']['voluntary'])) {
             $volRows = [6, 7, 8, 9, 10, 11, 12];
             foreach ($data['professional']['voluntary'] as $i => $vol) {
-                if (!isset($volRows[$i])) break;
+                if (!isset($volRows[$i]))
+                    break;
                 $r = $volRows[$i];
                 $cells["C3:A{$r}"] = ['v' => trim(($vol['organization_name'] ?? '') . ' ' . ($vol['organization_address'] ?? ''))];
-                if (!empty($vol['start_date'])) $cells["C3:E{$r}"] = ['v' => date('m/d/Y', strtotime($vol['start_date']))];
-                if (!empty($vol['end_date']))   $cells["C3:F{$r}"] = ['v' => date('m/d/Y', strtotime($vol['end_date']))];
+                if (!empty($vol['start_date']))
+                    $cells["C3:E{$r}"] = ['v' => date('m/d/Y', strtotime($vol['start_date']))];
+                if (!empty($vol['end_date']))
+                    $cells["C3:F{$r}"] = ['v' => date('m/d/Y', strtotime($vol['end_date']))];
                 $cells["C3:G{$r}"] = ['v' => (string) ($vol['number_of_hours'] ?? '')];
                 $cells["C3:H{$r}"] = ['v' => $vol['position_role'] ?? ''];
             }
@@ -265,11 +270,14 @@ class PdsController extends EmployeeBaseController
         if (!empty($data['professional']['ld'])) {
             $ldRows = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 35, 36, 37, 38];
             foreach ($data['professional']['ld'] as $i => $ld) {
-                if (!isset($ldRows[$i])) break;
+                if (!isset($ldRows[$i]))
+                    break;
                 $r = $ldRows[$i];
                 $cells["C3:A{$r}"] = ['v' => $ld['ld_title'] ?? ''];
-                if (!empty($ld['ld_date_from'])) $cells["C3:E{$r}"] = ['v' => date('m/d/Y', strtotime($ld['ld_date_from']))];
-                if (!empty($ld['ld_date_to']))   $cells["C3:F{$r}"] = ['v' => date('m/d/Y', strtotime($ld['ld_date_to']))];
+                if (!empty($ld['ld_date_from']))
+                    $cells["C3:E{$r}"] = ['v' => date('m/d/Y', strtotime($ld['ld_date_from']))];
+                if (!empty($ld['ld_date_to']))
+                    $cells["C3:F{$r}"] = ['v' => date('m/d/Y', strtotime($ld['ld_date_to']))];
                 $cells["C3:G{$r}"] = ['v' => (string) ($ld['ld_hours'] ?? '')];
                 $cells["C3:H{$r}"] = ['v' => $ld['ld_type'] ?? ''];
                 $cells["C3:I{$r}"] = ['v' => $ld['ld_sponsor'] ?? ''];
@@ -278,23 +286,26 @@ class PdsController extends EmployeeBaseController
 
         $otherRows = [42, 43, 44, 45, 46, 47, 48];
         foreach (($data['other']['skills'] ?? []) as $i => $skill) {
-            if (!isset($otherRows[$i])) break;
+            if (!isset($otherRows[$i]))
+                break;
             $cells["C3:A{$otherRows[$i]}"] = ['v' => $skill['skill_hobby'] ?? ''];
         }
         foreach (($data['other']['recognition'] ?? []) as $i => $rec) {
-            if (!isset($otherRows[$i])) break;
+            if (!isset($otherRows[$i]))
+                break;
             $cells["C3:C{$otherRows[$i]}"] = ['v' => $rec['recognition'] ?? ''];
         }
         foreach (($data['other']['membership'] ?? []) as $i => $mem) {
-            if (!isset($otherRows[$i])) break;
+            if (!isset($otherRows[$i]))
+                break;
             $cells["C3:I{$otherRows[$i]}"] = ['v' => $mem['membership'] ?? ''];
         }
 
         /* ══════════════════════════════════════════════════════════════
            C4  ·  Declarations / References / Government ID
-           
+
            ALL positions verified from PDS-Form-212-2025.xlsx:
-           
+
            Q34a within 3rd degree  → I6:L6   (TL=I6)
            Q34b within 4th degree  → I8       (single)
            Q35a found guilty       → I15:L15  (TL=I15)
@@ -309,16 +320,16 @@ class PdsController extends EmployeeBaseController
            Q40a indigenous group   → I43      (single)
            Q40b disability         → I45      (single)
            Q40c solo parent        → I47      (single)
-           
+
            References:
            ref name    → A52:E52 / A53:E53 / A54:E54
            ref address → F52 / F53 / F54      (single cells)
            ref contact → G52:I52 / G53:I53 / G54:I54
-           
+
            Gov ID:
            type   → D62:D63  (TL=D62)
            number → D64:D65  (TL=D64)
-           
+
            Photo  → J50:M55  (TL=J50)
         ══════════════════════════════════════════════════════════════ */
         if (!empty($data['other']['c4'])) {
@@ -326,8 +337,8 @@ class PdsController extends EmployeeBaseController
             $yn = static fn($v) => strtoupper(trim((string) ($v ?? '')));
 
             // Q34
-            $cells['C4:I6']  = ['v' => $yn($c4['q34a'])];  // a. within 3rd degree → I6:L6
-            $cells['C4:I8']  = ['v' => $yn($c4['q34b'])];  // b. within 4th degree → I8 single
+            $cells['C4:I6'] = ['v' => $yn($c4['q34a'])];  // a. within 3rd degree → I6:L6
+            $cells['C4:I8'] = ['v' => $yn($c4['q34b'])];  // b. within 4th degree → I8 single
 
             // Q35
             $cells['C4:I15'] = ['v' => $yn($c4['q35a'])];  // found guilty → I15:L15
@@ -387,7 +398,7 @@ class PdsController extends EmployeeBaseController
         //   - a full URL  (pass through unchanged)
         //   - a base64 data URI (pass through unchanged)
         $rawPhoto = $data['personal']['photo'] ?? null;
-        $photo    = null;
+        $photo = null;
 
         if (!empty($rawPhoto)) {
             if (str_starts_with($rawPhoto, 'data:') || str_starts_with($rawPhoto, 'http')) {
@@ -401,8 +412,8 @@ class PdsController extends EmployeeBaseController
 
         json_response([
             'success' => true,
-            'cells'   => $cells,
-            'photo'   => $photo,
+            'cells' => $cells,
+            'photo' => $photo,
         ]);
     }
 
@@ -412,10 +423,10 @@ class PdsController extends EmployeeBaseController
     public function index(): void
     {
         $employeeId = Auth::id();
-        $pdsData    = $this->model->getAllPdsData($employeeId);
+        $pdsData = $this->model->getAllPdsData($employeeId);
 
         $this->view('Employee/Pds/Preview', [
-            'pds'        => $pdsData,
+            'pds' => $pdsData,
             'employeeId' => $employeeId,
         ]);
     }
@@ -427,19 +438,19 @@ class PdsController extends EmployeeBaseController
     {
         if (!csrf_verify($_GET['_csrf_token'] ?? null)) {
             json_response([
-                'success'    => false,
-                'message'    => 'CSRF token mismatch.',
+                'success' => false,
+                'message' => 'CSRF token mismatch.',
                 'csrf_token' => csrf_token(),
             ]);
             return;
         }
 
         $employeeId = Auth::id();
-        $data       = $this->model->getAllPdsData($employeeId);
+        $data = $this->model->getAllPdsData($employeeId);
 
         json_response([
-            'success'    => true,
-            'data'       => $data,
+            'success' => true,
+            'data' => $data,
             'csrf_token' => csrf_token(),
         ]);
     }
